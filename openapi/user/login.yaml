@@ -1,0 +1,42 @@
+paths:
+  /login
+  post:
+    summary: Authenticate user and generate JWT
+    description: Authenticates the user and generates a JWT signed with the user role
+    tags:
+      - Auth 
+    operationId: login
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+                format: password
+
+    responses:
+      "200":
+        description: Authentication succesful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token: string
+      "401":
+        description: Authentication failed, invalid credentials
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
