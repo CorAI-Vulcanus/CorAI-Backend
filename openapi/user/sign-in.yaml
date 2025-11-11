@@ -1,11 +1,9 @@
-create-user:
-  summary: Create new user 
-  description: Creates a new user with specified role
+sign-in:
+  summary: Sign in
+  description: Creates a new user in the system
   tags:
-    - Admin
-  operationId: CreateUser 
-  security:
-    - BearerAuth: []
+    - Auth 
+  operationId: signIn 
   requestBody:
     required: true
     content:
@@ -32,14 +30,14 @@ create-user:
             role:
               type: string
           example:
-            - user_name: example123
-              password: pass123
-              email: user@example.com 
-              phone_number: "4512121212"
-              role: Patient
+            user_name: example123
+            password: pass123
+            email: user@example.com 
+            phone_number: "53347898854"
+            role: Doctor  
   responses:
     "201":
-      description: User created succesfully
+      description: User signed in succesfully
       content:
         application/json:
           schema:
@@ -48,31 +46,31 @@ create-user:
               message:
                 type: string
             example:
-              message: User created succesfully
+              message: Signed in succesfully
     "400":
-      description: Invalid input or fields
+      description: User typed in invalid inputs or left out fields
       content:
         application/json:
           schema:
             type: object
             properties:
-              error:
+              message:
                 type: string
             example:
-              error: Invalid input or fields
-    "401":
-      description: Unauthorized
+              message: Invalid input or fields
+    "409":
+      description: User name, email or phone number already existing
       content:
         application/json:
           schema:
             type: object
             properties:
-              error:
+              message:
                 type: string
             example:
-              error: Unauthorized action
+              message: Data already in use
     "500":
-      description: Internal Server error
+      description: Internal Server Error
       content:
         application/json:
           schema:

@@ -5,7 +5,7 @@ logout:
     - Auth
   operationId: logout
   security:
-    - token: []
+    - BearerAuth: []
   responses:
     "200":
       description: Logout succesful, JWT cleared

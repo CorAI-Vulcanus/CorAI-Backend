@@ -5,11 +5,14 @@ info:
 
 paths:
 
+  /user/sign-in:
+    post:
+      $ref: "./user/sign-in.yaml#/sign-in"
   /user/login:
     post:
       $ref: "./user/login.yaml#/login"
   /user/logout:
-    post:
+    get:
       $ref: "./user/logout.yaml#/logout"
   /user/update-user/{user_id}:
     put:
@@ -34,3 +37,11 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
+tags:
+  - name: Auth 
+    description: Endpoints related to authentication such as login, logout, sign in 
+  - name: Admin 
+    description: Endpoints related to the admin user 
+  - name: User 
+    description: Endpoints that apply to all users 
