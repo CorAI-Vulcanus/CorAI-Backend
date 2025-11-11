@@ -1,71 +1,83 @@
-paths:
-  /create-user:
-    post:
-      summary: Create new user 
-      description: Creates a new user with specified role
-      tags:
-        - Admin
-      operationId: CreateUser 
-      security:
-        - token: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_name
-                - password
-                - email
-                - phone_number
-                - role
-              properties:
-                user_name:
-                  type: string
-                password:
-                  type: string
-                email:
-                  type: string
-                  format: email
-                phone_number:
-                  type: string
-                role:
-                  type: string
-      responses:
-        "201":
-          description: User created succesfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        "400":
-          description: Invalid input or fields
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        "500":
-          description: Internal Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+create-user:
+  summary: Create new user 
+  description: Creates a new user with specified role
+  tags:
+    - Admin
+  operationId: CreateUser 
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - user_name
+            - password
+            - email
+            - phone_number
+            - role
+          properties:
+            user_name:
+              type: string
+            password:
+              type: string
+            email:
+              type: string
+              format: email
+            phone_number:
+              type: string
+            role:
+              type: string
+          example:
+            - user_name: example123
+              password: pass123
+              email: user@example.com 
+              phone_number: "4512121212"
+              role: Patient
+  responses:
+    "201":
+      description: User created succesfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: User created succesfully
+    "400":
+      description: Invalid input or fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Invalid input or fields
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error

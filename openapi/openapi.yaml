@@ -1,0 +1,36 @@
+openapi: 3.1.0
+info:
+  title: CorAI API
+  version: 0.1.0
+
+paths:
+
+  /user/login:
+    post:
+      $ref: "./user/login.yaml#/login"
+  /user/logout:
+    post:
+      $ref: "./user/logout.yaml#/logout"
+  /user/update-user/{user_id}:
+    put:
+      $ref: "./user/update-user.yaml#/update-user"
+
+  /admin/get-users:
+    get:
+      $ref: "./admin/get-users.yaml#/get-users"
+  /admin/create-users:
+    post:
+      $ref: "./admin/create-users.yaml#/create-user"
+  /admin/deactivate-user/{user_id}:
+    put:
+      $ref: "./admin/deactivate-user.yaml#/deactivate-user"
+  /admin/delete-user/{user_id}:
+    get:
+      $ref: "./admin/delete-user.yaml#/delete-user"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

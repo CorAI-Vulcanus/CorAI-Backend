@@ -1,77 +1,92 @@
-paths:
-  /update-user/{user_id}:
-    put:
-      summary: Update user information
-      description: Updates fields of and existing user.
-      tags:
-        - User 
-      operationId: updateUser 
-      security:
-        - token: []
-      parameters:
-        - name: user_id
-          in: path 
-          required: true
-          description: ID of updated user
-          schema: 
-            type: integer
-      requestBody: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user_name:
-                  type: string
-                password:
-                  type: string
-                email:
-                  type: string
-                  format: email
-                phone_number:
-                  type: string
-                role:
-                  type: string
-      responses:
-        "200":
-          description: User updated succesfully
-          content:
-            application/json:
-              type: object
-              properties:
-                message:
-                  type: string
-        "400":
-          description: Invalid input or field
-          content:
-            application/json:
-              type: object
-              properties:
-                error:
-                  type: string
-        "404":
-          description: User not found
-          content:
-            application/json:
-              type: object
-              properties:
-                error:
-                  type: string
-        "403":
-          description: Forbidden action 
-          content:
-            application/json:
-              type: object
-              properties:
-                error:
-                  type: string
-        "500":
-          description: Internal Server error
-          content:
-            application/json:
-              type: object
-              properties:
-                error:
-                  type: string
+update-user:
+  summary: Update user information
+  description: Updates fields of and existing user.
+  tags:
+    - User 
+  operationId: updateUser 
+  security:
+    - BearerAuth: []
+  parameters:
+    - name: user_id
+      in: path 
+      required: true
+      description: ID of updated user
+      schema: 
+        type: integer
+  requestBody: 
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user_name:
+              type: string
+            password:
+              type: string
+            email:
+              type: string
+              format: email
+            phone_number:
+              type: string
+            role:
+              type: string
+          example:
+            user_name: example123
+            password: pass123
+            email: user@example.com 
+            phone_number: "5523456534"
+            role: Doctor
+  responses:
+    "200":
+      description: User updated succesfully
+      content:
+        application/json:
+          type: object
+          properties:
+            message:
+              type: string
+          example:
+            message: User updated succesfully
+    "400":
+      description: Invalid input or field
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Invalid input or field
+
+    "404":
+      description: User not found
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: User not found
+    "401":
+      description: Unauthorized action 
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Unauthorized action 
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Internal server error
 

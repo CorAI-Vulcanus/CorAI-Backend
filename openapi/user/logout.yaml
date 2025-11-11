@@ -1,25 +1,31 @@
-paths:
-  /logout:
-    get:
-      summary: Logout and clear JWT
-      security:
-        - token: []
-      responses:
-        "200":
-          description: Logout succesful, JWT cleared
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+logout:
+  summary: Logout
+  description: Logs out from session and cleans token
+  tags:
+    - Auth
+  operationId: logout
+  security:
+    - token: []
+  responses:
+    "200":
+      description: Logout succesful, JWT cleared
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: "Logged out succesfully"
+    "500":
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error

@@ -1,58 +1,66 @@
-paths:
-  /deactivate-user/{user_id}:
-    put:
-      summary: Deactivate a user 
-      description: Marks the user as inactive but doesn't delete data 
-      tags:
-        - Admin
-      operationId: deactivateUser 
-      security:
-        - token: []
-      paramaters:
-        - name: user_id
-          in: path 
-          required: true
-          description: id of the user to deactivate 
+deactivate-user:
+  summary: Deactivate a user 
+  description: Marks the user as inactive but doesn't delete data 
+  tags:
+    - Admin
+  operationId: deactivateUser 
+  security:
+    - BearerAuth: []
+  paramaters:
+    - name: user_id
+      in: path 
+      required: true
+      description: id of the user to deactivate 
+      schema:
+        type: integer
+  responses:
+    "200":
+      description: User deactivated succesfully
+      content:
+        application/json:
           schema:
-            type: integer
-      responses:
-        "200":
-          description: User deactivated succesfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: integer
-                  user_id:
-                    type: integer
-                  active: 
-                    type: boolean
-        "404":
-          description: User not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        "500":
-          description: Internal Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+            type: object
+            properties:
+              message:
+                type: string
+              user_id:
+                type: integer
+              active: 
+                type: boolean
+            example:
+              message: User deactivated succesfully
+              user_id: 21
+              active: false
+    "404":
+      description: User not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: User not found
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error

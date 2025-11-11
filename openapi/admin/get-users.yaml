@@ -1,58 +1,73 @@
-paths:
-  /get-users:
-    get:
-      summary: Retrieve the users data
-      description: Gets the relevant data of all users for admin
-      tags:
-        - Admin
-      operationId: getUsers
-      security:
-        - token: []
-      responses: 
-      "200":
-        description: List of users
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                properties:
-                  user_id:
-                    type: integer
-                  user_name:
-                    type: string
-                  email:
-                    type: string
-                    format: email
-                  phone_number:
-                    type: string
-                  role:
-                    type: string
-      "401":
-        description: Unauthorized
-        content:
-          application/json:
-            schema:
+get-users:
+  summary: Retrieve the users data
+  description: Gets the relevant data of all users for admin
+  tags:
+    - Admin
+  operationId: getUsers
+  security:
+    - BearerAuth: []
+  responses: 
+    "200":
+      description: List of users
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
               type: object
               properties:
-                error:
-                  type: string:
-      "404":
-        description: No users found
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
+                user_id:
+                  type: integer
+                user_name:
                   type: string
-      "500":
-        description: Internal Server error
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
+                email:
                   type: string
+                  format: email
+                phone_number:
+                  type: string
+                role:
+                  type: string
+              example:
+                - user_id: 12
+                  user_name: example123
+                  email: user@example.com 
+                  phone_number: "5434343443"
+                  role: Patient
+                - user_id: 23
+                  user_name: example456
+                  email: user1@example.com 
+                  phone_number: "4434235325"
+                  role: Doctor
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "404":
+      description: No users found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: No users found
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error
