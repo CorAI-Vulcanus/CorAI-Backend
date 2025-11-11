@@ -1,0 +1,69 @@
+get-patients:
+  summary: Retrieve patients list
+  description: Retrieves the list of the doctors patients
+  tags:
+    - Doctor 
+  operationId: getPatients 
+  security:
+    - BearerAuth: []
+  responses:
+    "200":
+      description: List of patients
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone_number:
+                  type: string
+              example: 
+                - user_id: 34
+                  name: John Doe 
+                  email: user@example.com 
+                  phone_number: "536578934"
+                - user_id: 65
+                  name: Karen Doe
+                  email: user1@example.com 
+                  phone_number: "5678469284"
+    "401":
+      description: Unauthorized access
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action 
+    "404":
+      description: No patients found for this doctor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: No patients found
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example: Internal server error
+

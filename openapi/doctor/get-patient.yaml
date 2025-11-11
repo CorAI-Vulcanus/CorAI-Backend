@@ -1,0 +1,73 @@
+get-patient/{user_id}:
+  summary: Retrieves patient data 
+  description: Retrieves the data from an specific patient 
+  tags:
+    - Doctor
+  operationId: getPatient 
+  security:
+    - BearerAuth: []
+  responses:
+    "200":
+      description: Patient data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+                format: email
+              phone_number:
+                type: string
+              blood_type:
+                type: string
+              sex:
+                type: string
+              weight:
+                type: integer
+              height:
+                type: float
+            example:
+              user_id: 34
+              name: John Doe 
+              email: user@example.com 
+              phone_number: "536578934"
+              blood_type: O+
+              sex: Male
+              weight: 68
+              height: 1.72
+    "401":
+      description: Unauthorized access
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example: 
+              error: Unauthorized action 
+    "404":
+      description: Patient not found
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Patient not found
+    "500":
+      description: Internal Server Error 
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Internal server error

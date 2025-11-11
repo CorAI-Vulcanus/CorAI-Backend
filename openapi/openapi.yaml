@@ -18,6 +18,13 @@ paths:
     put:
       $ref: "./user/update-user.yaml#/update-user"
 
+  /doctor/get-patients:
+    get:
+      $ref: "./doctor/get-patients.yaml#/get-patients"
+  /doctor/get-patient:
+    get:
+      $ref: "./doctor/get-patient.yaml#/get-patient"
+
   /admin/get-users:
     get:
       $ref: "./admin/get-users.yaml#/get-users"
@@ -45,3 +52,7 @@ tags:
     description: Endpoints related to the admin user 
   - name: User 
     description: Endpoints that apply to all users 
+  - name: Doctor
+    description: Endpoints related to the doctor user
+  - name: Patient 
+    description: Endpoints related to the patient user
