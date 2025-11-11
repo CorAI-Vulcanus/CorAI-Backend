@@ -21,7 +21,7 @@ paths:
   /doctor/get-patients:
     get:
       $ref: "./doctor/get-patients.yaml#/get-patients"
-  /doctor/get-patient:
+  /doctor/get-patient/{user_id}:
     get:
       $ref: "./doctor/get-patient.yaml#/get-patient"
 

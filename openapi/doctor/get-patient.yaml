@@ -1,4 +1,4 @@
-get-patient/{user_id}:
+get-patient:
   summary: Retrieves patient data 
   description: Retrieves the data from an specific patient 
   tags:
@@ -6,6 +6,13 @@ get-patient/{user_id}:
   operationId: getPatient 
   security:
     - BearerAuth: []
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      description: ID of the patient
+      schema:
+        type: integer
   responses:
     "200":
       description: Patient data
