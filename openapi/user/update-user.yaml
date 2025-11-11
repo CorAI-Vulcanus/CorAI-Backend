@@ -1,0 +1,77 @@
+paths:
+  /update-user/{user_id}:
+    put:
+      summary: Update user information
+      description: Updates fields of and existing user.
+      tags:
+        - User 
+      operationId: updateUser 
+      security:
+        - token: []
+      parameters:
+        - name: user_id
+          in: path 
+          required: true
+          description: ID of updated user
+          schema: 
+            type: integer
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone_number:
+                  type: string
+                role:
+                  type: string
+      responses:
+        "200":
+          description: User updated succesfully
+          content:
+            application/json:
+              type: object
+              properties:
+                message:
+                  type: string
+        "400":
+          description: Invalid input or field
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+        "404":
+          description: User not found
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+        "403":
+          description: Forbidden action 
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+        "500":
+          description: Internal Server error
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+
