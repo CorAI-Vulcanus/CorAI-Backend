@@ -1,0 +1,104 @@
+update-patient-data:
+  summary: Update patient health data 
+  description: Update health info 
+  tags:
+    - Patient
+  operationId: updatePatientData 
+  security:
+    - BearerAuth: []
+  parameters:
+    - name: user_id
+      in: path 
+      required: true
+      description: ID of updated patient data
+      schema: 
+        type: integer
+  requestBody: 
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            blood_type:
+              type: string
+            sex:
+              type: string
+            weight:
+              type: integer
+            height:
+              type: float
+          example:
+            blood_type: O+
+            sex: Female
+            weight: 50
+            height: 1.55
+  responses:
+    "200":
+      description: Patient health data 
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: Patient data updated succesfully
+    "400":
+      description: Invalid input or fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Invalid input or fields
+    "401":
+      description: Unauthorized, missing authentication
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action 
+    "403":
+      description: Forbidden, user not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action
+    "404":
+      description: Patient to update not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: User not found
+    "500":
+      description: Internal Server Error 
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error
+
+

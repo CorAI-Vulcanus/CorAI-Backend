@@ -59,7 +59,7 @@ update-user:
           example:
             error: Invalid input or field
     "401":
-      description: Unauthorized action 
+      description: Unauthorized, missing authentication 
       content:
         application/json:
           type: object
@@ -68,6 +68,16 @@ update-user:
               type: string
           example:
             error: Unauthorized action
+    "403":
+      description: Forbidden, user not authorized
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Forbidden action
     "404":
       description: User not found
       content:

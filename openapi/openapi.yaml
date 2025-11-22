@@ -25,6 +25,10 @@ paths:
     get:
       $ref: "./doctor/get-patient.yaml#/get-patient"
 
+  /patient/update-patient-data/{user_id}:
+    put:
+      $ref: "./patient/update-patient-data.yaml#/update-patient-data"
+
   /admin/get-users:
     get:
       $ref: "./admin/get-users.yaml#/get-users"
