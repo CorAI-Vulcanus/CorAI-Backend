@@ -10,7 +10,7 @@ deactivate-user:
     - name: user_id
       in: path 
       required: true
-      description: id of the user to deactivate 
+      description: ID of the user to deactivate 
       schema:
         type: integer
   responses:
@@ -31,6 +31,28 @@ deactivate-user:
               message: User deactivated succesfully
               user_id: 21
               active: false
+    "401":
+      description: Unauthorized, authentication missing
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "403":
+      description: Forbidden, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action 
     "404":
       description: User not found
       content:
@@ -42,17 +64,6 @@ deactivate-user:
                 type: string
             example:
               error: User not found
-    "401":
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-            example:
-              error: Unauthorized action
     "500":
       description: Internal Server error
       content:

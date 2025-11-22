@@ -61,7 +61,7 @@ create-user:
             example:
               error: Invalid input or fields
     "401":
-      description: Unauthorized
+      description: Unauthorized action, authentication missing
       content:
         application/json:
           schema:
@@ -71,6 +71,17 @@ create-user:
                 type: string
             example:
               error: Unauthorized action
+    "403":
+      description: Forbidden action, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action
     "500":
       description: Internal Server error
       content:

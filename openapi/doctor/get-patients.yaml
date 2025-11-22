@@ -12,30 +12,28 @@ get-patients:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                user_id:
-                  type: integer
-                name:
-                  type: string
-                email:
-                  type: string
-                  format: email
-                phone_number:
-                  type: string
-              example: 
-                - user_id: 34
-                  name: John Doe 
-                  email: user@example.com 
-                  phone_number: "536578934"
-                - user_id: 65
-                  name: Karen Doe
-                  email: user1@example.com 
-                  phone_number: "5678469284"
+            type: object
+            properties:
+              user_id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+                format: email
+              phone_number:
+                type: string
+            example: 
+              - user_id: 34
+                name: John Doe 
+                email: user@example.com 
+                phone_number: "536578934"
+              - user_id: 65
+                name: Karen Doe
+                email: user1@example.com 
+                phone_number: "5678469284"
     "401":
-      description: Unauthorized access
+      description: Unauthorized, authentication missing
       content:
         application/json:
           schema:
@@ -45,6 +43,17 @@ get-patients:
                 type: string
             example:
               error: Unauthorized action 
+    "403":
+      description: Forbidden, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action 
     "404":
       description: No patients found for this doctor
       content:

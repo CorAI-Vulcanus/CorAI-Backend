@@ -25,6 +25,28 @@ delete-user:
                 type: string
             example:
               message: User deleted succesfully
+    "401":
+      description: Unauthorized, authentication missing
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "403":
+      description: Forbidden, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action
     "404":
       description: User not found
       content:
@@ -36,17 +58,6 @@ delete-user:
                 type: string
             example:
               error: User not found
-    "401":
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-            example:
-              error: Unauthorized action
     "500":
       description: Internal Server error
       content:

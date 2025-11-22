@@ -34,7 +34,8 @@ login:
               token:
                 type: string
                 description: JWT access token signed with the user's role
-                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+            example: 
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
     "401":
       description: Authentication failed, invalid credentials
       content:
@@ -45,4 +46,15 @@ login:
               error:
                 type: string
             example:
-                  error: "Authentication failed: Invalid username or password"
+              error: Invalid username or password
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error

@@ -48,7 +48,7 @@ get-patient:
               weight: 68
               height: 1.72
     "401":
-      description: Unauthorized access
+      description: Unauthorized, authentication missing
       content:
         application/json:
           schema:
@@ -58,6 +58,17 @@ get-patient:
                 type: string
             example: 
               error: Unauthorized action 
+    "403":
+      description: Forbidden, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action
     "404":
       description: Patient not found
       content:

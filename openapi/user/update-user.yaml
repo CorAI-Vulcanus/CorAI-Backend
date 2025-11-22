@@ -58,7 +58,16 @@ update-user:
               type: string
           example:
             error: Invalid input or field
-
+    "401":
+      description: Unauthorized action 
+      content:
+        application/json:
+          type: object
+          properties:
+            error:
+              type: string
+          example:
+            error: Unauthorized action
     "404":
       description: User not found
       content:
@@ -69,16 +78,6 @@ update-user:
               type: string
           example:
             error: User not found
-    "401":
-      description: Unauthorized action 
-      content:
-        application/json:
-          type: object
-          properties:
-            error:
-              type: string
-          example:
-            error: Unauthorized action 
     "500":
       description: Internal Server error
       content:
