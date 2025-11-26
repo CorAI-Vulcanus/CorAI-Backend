@@ -1,0 +1,141 @@
+ingest:
+  summary: Data ingest
+  description: Receives the ECG data sent from the MCU, transforms it to WFDB format.
+  tags:
+    - Patient
+  operationId: ingestData
+  security:
+    - BearerAuth: []
+  parameters:
+    - name: user_id
+      in: path 
+      required: true
+      description: ID of the patient
+      schema: 
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - fs
+            - n_samples
+            - unit
+            - freq_signal_Hz
+            - ecg
+          properties:
+            fs:
+              type: integer
+              description: Frequency sample in Hz
+            n_samples:
+              type: integer
+              description: Number of samples 
+            unit:
+              type: string
+              description: Type of unit in which the values are being sent
+            freq_signal_Hz:
+              type: integer
+              decription: Frequency signals in Hz 
+            ecg:
+              type: array
+              
+              items:
+                type: object
+                required:
+                  - v_mV
+                  - t_us
+                  - timestamp
+                properties:
+                  v_mV:
+                    type: integer
+                  t_us:
+                    type: integer
+                    description: Time in ms since the beginning of the reading
+                  timestamp:
+                    type: string
+                    format: time
+                    description: Time of the data
+          example:
+            fs: 4000
+            n_samples: 400 
+            unit: mV 
+            freq_signal_Hz: 70
+            ecg:
+              - v_mV: 268
+                t_us: 0
+                timestamp: 2025-11-25 20:41:13.441
+              - v_mV: 239
+                t_us: 252
+                timestamp: 2025-11-25 20:41:13.441
+              - v_mV: 190
+                t_us: 500
+                timestamp: 2025-11-25 20:41:13.442
+  responses:
+    "200":
+      description: ECG data received 
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: ECG data received succesfully
+    "400":
+      description: Invalid input or fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Invalid input or fields
+     "401":
+      description: Unauthorized, missing authentication
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action 
+    "403":
+      description: Forbidden, user not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+      error:
+                type: string
+            example:
+              error: Forbidden action
+    "404":
+      description: Patient not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: User not found
+    "500":
+      description: Internal Server Error 
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error 
