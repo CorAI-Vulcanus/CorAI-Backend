@@ -37,7 +37,7 @@ ingest:
               description: Type of unit in which the values are being sent
             freq_signal_Hz:
               type: integer
-              decription: Frequency signals in Hz 
+decription: Frequency signals in Hz 
             ecg:
               type: array
               
@@ -74,7 +74,7 @@ ingest:
                 timestamp: 2025-11-25 20:41:13.442
   responses:
     "200":
-      description: ECG data received 
+      description: ECG data received
       content:
         application/json:
           schema:
@@ -95,7 +95,7 @@ ingest:
                 type: string
             example:
               error: Invalid input or fields
-     "401":
+    "401":
       description: Unauthorized, missing authentication
       content:
         application/json:
@@ -113,7 +113,7 @@ ingest:
           schema:
             type: object
             properties:
-      error:
+              error:
                 type: string
             example:
               error: Forbidden action
@@ -138,4 +138,4 @@ ingest:
               error:
                 type: string
             example:
-              error: Internal server error 
+              error: Internal server error

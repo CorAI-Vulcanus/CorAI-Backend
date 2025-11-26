@@ -18,16 +18,18 @@ paths:
     put:
       $ref: "./user/update-user.yaml#/update-user"
 
-  /doctor/get-patients:
+  /patient/get-patients:
     get:
-      $ref: "./doctor/get-patients.yaml#/get-patients"
-  /doctor/get-patient/{user_id}:
+      $ref: "./patient/get-patients.yaml#/get-patients"
+  /patient/get-patient/{user_id}:
     get:
-      $ref: "./doctor/get-patient.yaml#/get-patient"
-
+      $ref: "./patient/get-patient.yaml#/get-patient"
   /patient/update-patient-data/{user_id}:
     put:
       $ref: "./patient/update-patient-data.yaml#/update-patient-data"
+  /patient/ingest/{user_id}:
+    post:
+      $ref: "./patient/ingest.yaml#/ingest"
 
   /admin/get-users:
     get:

@@ -2,7 +2,7 @@ get-patient:
   summary: Retrieves patient data 
   description: Retrieves the data from an specific patient 
   tags:
-    - Doctor
+    - Patient
   operationId: getPatient 
   security:
     - BearerAuth: []

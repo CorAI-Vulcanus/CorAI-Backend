@@ -2,7 +2,7 @@ get-patients:
   summary: Retrieve patients list
   description: Retrieves the list of the doctors patients
   tags:
-    - Doctor 
+    - Patient 
   operationId: getPatients 
   security:
     - BearerAuth: []
