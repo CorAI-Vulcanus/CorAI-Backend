@@ -37,7 +37,7 @@ ingest:
               description: Type of unit in which the values are being sent
             freq_signal_Hz:
               type: integer
-decription: Frequency signals in Hz 
+              decription: Frequency signals in Hz 
             ecg:
               type: array
               
@@ -139,3 +139,4 @@ decription: Frequency signals in Hz
                 type: string
             example:
               error: Internal server error
+
