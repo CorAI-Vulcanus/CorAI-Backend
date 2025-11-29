@@ -14,6 +14,9 @@ paths:
   /user/logout:
     get:
       $ref: "./user/logout.yaml#/logout"
+  /user/get-user/{user_id}:
+    get:
+      $ref: "./user/get-user.yaml#/get-user"
   /user/update-user/{user_id}:
     put:
       $ref: "./user/update-user.yaml#/update-user"
@@ -58,7 +61,5 @@ tags:
     description: Endpoints related to the admin user 
   - name: User 
     description: Endpoints that apply to all users 
-  - name: Doctor
-    description: Endpoints related to the doctor user
   - name: Patient 
     description: Endpoints related to the patient user

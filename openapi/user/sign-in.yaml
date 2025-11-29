@@ -22,6 +22,8 @@ sign-in:
             password:
               type: string
               format: password
+            name:
+              type: string
             email:
               type: string
               format: email
@@ -32,6 +34,7 @@ sign-in:
           example:
             user_name: example123
             password: pass123
+            name: John Doe
             email: user@example.com 
             phone_number: "53347898854"
             role: Doctor  

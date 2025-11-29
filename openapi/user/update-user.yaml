@@ -24,6 +24,8 @@ update-user:
               type: string
             password:
               type: string
+            name:
+              type: string
             email:
               type: string
               format: email
@@ -34,6 +36,7 @@ update-user:
           example:
             user_name: example123
             password: pass123
+            name: John Doe
             email: user@example.com 
             phone_number: "5523456534"
             role: Doctor
