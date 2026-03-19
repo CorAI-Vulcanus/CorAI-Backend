@@ -1,0 +1,77 @@
+deactivate-user:
+  summary: Deactivate a user 
+  description: Marks the user as inactive but doesn't delete data 
+  tags:
+    - Admin
+  operationId: deactivateUser 
+  security:
+    - BearerAuth: []
+  paramaters:
+    - name: user_id
+      in: path 
+      required: true
+      description: ID of the user to deactivate 
+      schema:
+        type: integer
+  responses:
+    "200":
+      description: User deactivated succesfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              user_id:
+                type: integer
+              active: 
+                type: boolean
+            example:
+              message: User deactivated succesfully
+              user_id: 21
+              active: false
+    "401":
+      description: Unauthorized, authentication missing
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "403":
+      description: Forbidden, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action 
+    "404":
+      description: User not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: User not found
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error

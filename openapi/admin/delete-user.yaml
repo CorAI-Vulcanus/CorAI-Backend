@@ -1,0 +1,71 @@
+delete-user:
+  summary: Delete a user 
+  description: Deletes all data related to an specific
+  tags: 
+    - Admin
+  operationId: deleteUser 
+  security:
+    - BearerAuth: []
+  parameters:
+    - name: user_id
+      in: path 
+      required: true
+      description: ID of user to delete
+      schema:
+        type: integer
+  responses:
+    "200":
+      description: User deleted succesfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: User deleted succesfully
+    "401":
+      description: Unauthorized, authentication missing
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Unauthorized action
+    "403":
+      description: Forbidden, role not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Forbidden action
+    "404":
+      description: User not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: User not found
+    "500":
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            example:
+              error: Internal server error

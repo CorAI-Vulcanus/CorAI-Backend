@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: CorAI API
+  version: 0.1.0
+
+paths:
+
+  /user/sign-in:
+    post:
+      $ref: "./user/sign-in.yaml#/sign-in"
+  /user/login:
+    post:
+      $ref: "./user/login.yaml#/login"
+  /user/logout:
+    get:
+      $ref: "./user/logout.yaml#/logout"
+  /user/{user_id}:
+    get:
+      $ref: "./user/get-user.yaml#/get-user"
+    put:
+      $ref: "./user/update-user.yaml#/update-user"
+
+  /patients:
+    get:
+      $ref: "./patient/get-patients.yaml#/get-patients"
+  /patient/{user_id}:
+    get:
+      $ref: "./patient/get-patient.yaml#/get-patient"
+    put:
+      $ref: "./patient/update-patient-data.yaml#/update-patient-data"
+  /patient/ingest/{user_id}:
+    post:
+      $ref: "./patient/ingest.yaml#/ingest"
+
+  /admin/users:
+    get:
+      $ref: "./admin/get-users.yaml#/get-users"
+    post:
+      $ref: "./admin/create-users.yaml#/create-user"
+  /admin/user/{user_id}:
+    put:
+      $ref: "./admin/deactivate-user.yaml#/deactivate-user"
+    get:
+      $ref: "./admin/delete-user.yaml#/delete-user"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+tags:
+  - name: Auth 
+    description: Endpoints related to authentication such as login, logout, sign in 
+  - name: Admin 
+    description: Endpoints related to the admin user 
+  - name: User 
+    description: Endpoints that apply to all users 
+  - name: Patient 
+    description: Endpoints related to the patient user
