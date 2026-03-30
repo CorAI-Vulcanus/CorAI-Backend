@@ -1,27 +1,31 @@
-from fastapi import APIRouter
-from models.user import User
-from schemas.user import UserCreate, UserOut
-from bson import ObjectId
+from fastapi import APIRouter, Depends
+from schemas.user import UserSignIn, UserLogin, UserUpdate
+from controllers import userController
+from middleware.auth import get_current_user
 
-router = APIRouter()
+router = APIRouter(prefix="/user", tags=["Auth", "User"])
 
-@router.post("/users", response_model = UserOut)
-def create_user(user: UserCreate):
-    if User.objects(username = user.username).first():
-        print("Username exists")
 
-    new_user = User(
-            username = user.username,
-            password = user.password, #se necesita hasheo
-            name = user.name,
-            email = user.email,
-            phone = user.phone
-            ).save()
+@router.post("/sign-in", status_code=201)
+def sign_in(data: UserSignIn):
+    return userController.sign_in(data)
 
-    return {
-            "id":str(new_user.id),
-            "username": new_user.username,
-            "name": new_user.name,
-            "email": new_user.email,
-            "role": new_user.role
-            }
+
+@router.post("/login")
+def login(data: UserLogin):
+    return userController.login(data)
+
+
+@router.get("/logout")
+def logout(token: dict = Depends(get_current_user)):
+    return userController.logout()
+
+
+@router.get("/{user_id}")
+def get_user(user_id: str, token: dict = Depends(get_current_user)):
+    return userController.get_user(user_id, token)
+
+
+@router.put("/{user_id}")
+def update_user(user_id: str, data: UserUpdate, token: dict = Depends(get_current_user)):
+    return userController.update_user(user_id, data, token)

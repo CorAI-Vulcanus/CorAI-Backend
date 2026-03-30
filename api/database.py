@@ -1,7 +1,7 @@
 from mongoengine import connect
+import os
+
 
 def connect_db():
-    connect(
-            db = "corAI_database",
-            host = "mongodb://localhost:27017/corAI_database"
-            )
+    mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/corAI_database")
+    connect(host=mongo_uri)

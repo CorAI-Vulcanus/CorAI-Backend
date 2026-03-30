@@ -1,24 +1,27 @@
-from fastapi import APIRouter
-from models.patient import Patient
-from models.user import User
-from schemas.patient import PatientCreate
-from bson import ObjectId
+from fastapi import APIRouter, Depends
+from schemas.patient import PatientUpdate
+from schemas.sensor import SensorData
+from controllers import patientController
+from middleware.auth import get_current_user
 
-router = APIRouter()
+router = APIRouter(tags=["Patient"])
 
-@router.post("/patients")
-def create_patient(patient : PatientCreate):
-    user = User.objects(id = patient.user_id).first()
 
-    if not user:
-        print("User doesn't exist")
+@router.get("/patients")
+def get_patients(token: dict = Depends(get_current_user)):
+    return patientController.get_patients(token)
 
-    new_patient = Patient(
-            user = user,
-            blood_type = patient.blood_type,
-            sex = patient.sex,
-            weight = patient.weight,
-            height = patient.height
-            ).save()
 
-    return{"message":"Patient created"}
+@router.post("/patient/ingest/{user_id}")
+def ingest_data(user_id: str, data: SensorData, token: dict = Depends(get_current_user)):
+    return patientController.ingest_data(user_id, data, token)
+
+
+@router.get("/patient/{user_id}")
+def get_patient(user_id: str, token: dict = Depends(get_current_user)):
+    return patientController.get_patient(user_id, token)
+
+
+@router.put("/patient/{user_id}")
+def update_patient(user_id: str, data: PatientUpdate, token: dict = Depends(get_current_user)):
+    return patientController.update_patient(user_id, data, token)

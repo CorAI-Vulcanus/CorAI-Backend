@@ -7,5 +7,6 @@ class User(Document):
     name = StringField()
     email = EmailField(unique = True)
     phone = StringField(required = True)
-    role = StringField(choices = ["Doctor","Patient"], default="Patient")
+    role = StringField(choices = ["Doctor", "Patient", "Admin"], default="Patient")
+    is_active = BooleanField(default = True)
     created_at = DateTimeField(default = datetime.datetime.utcnow)
