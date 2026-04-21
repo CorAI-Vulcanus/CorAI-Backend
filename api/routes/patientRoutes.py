@@ -17,6 +17,11 @@ def ingest_data(user_id: str, data: SensorData, token: dict = Depends(get_curren
     return patientController.ingest_data(user_id, data, token)
 
 
+@router.get("/patient/{user_id}/sessions")
+def get_ecg_sessions(user_id: str, token: dict = Depends(get_current_user)):
+    return patientController.get_ecg_sessions(user_id, token)
+
+
 @router.get("/patient/{user_id}")
 def get_patient(user_id: str, token: dict = Depends(get_current_user)):
     return patientController.get_patient(user_id, token)
