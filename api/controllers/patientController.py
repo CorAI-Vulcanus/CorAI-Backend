@@ -75,6 +75,34 @@ def update_patient(user_id: str, data: PatientUpdate, token: dict) -> dict:
     return {"message": "Patient data updated successfully"}
 
 
+def get_ecg_sessions(user_id: str, token: dict) -> list:
+    _validate_id(user_id)
+    user = User.objects(id=user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    sensors = Sensor.objects(user=user).order_by("-created_at")
+    return [
+        {
+            "id": str(s.id),
+            "fs": s.fs,
+            "n_samples": s.n_samples,
+            "unit": s.unit,
+            "freq_signal_Hz": s.freq_signal_Hz,
+            "created_at": s.created_at.isoformat() if s.created_at else None,
+            "ecg": [
+                {
+                    "v_mV": e.v_mV,
+                    "t_us": e.t_us,
+                    "timestamp": e.timestamp.isoformat() if e.timestamp else None,
+                }
+                for e in s.ecg
+            ],
+        }
+        for s in sensors
+    ]
+
+
 def ingest_data(user_id: str, data: SensorData, token: dict) -> dict:
     _validate_id(user_id)
     user = User.objects(id=user_id).first()
