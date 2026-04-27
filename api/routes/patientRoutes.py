@@ -18,8 +18,8 @@ def ingest_data(user_id: str, data: SensorData, token: dict = Depends(get_curren
 
 
 @router.get("/patient/{user_id}/sessions")
-def get_ecg_sessions(user_id: str, token: dict = Depends(get_current_user)):
-    return patientController.get_ecg_sessions(user_id, token)
+def get_sessions(user_id: str, token: dict = Depends(get_current_user)):
+    return patientController.get_sessions(user_id, token)
 
 
 @router.get("/patient/{user_id}")

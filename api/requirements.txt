@@ -6,3 +6,8 @@ pydantic[email]
 python-jose[cryptography]
 bcrypt
 python-dotenv
+scikit-learn
+numpy
+scipy
+PyWavelets
+joblib

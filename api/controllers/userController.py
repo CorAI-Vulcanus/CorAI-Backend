@@ -46,7 +46,7 @@ def login(data: UserLogin) -> dict:
         raise HTTPException(status_code=401, detail="Account is inactive")
 
     token = create_access_token(str(user.id), user.role)
-    return {"token": token}
+    return {"token": token, "user_id": str(user.id), "role": user.role}
 
 
 def logout() -> dict:

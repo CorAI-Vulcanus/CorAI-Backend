@@ -4,6 +4,7 @@ load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import connect_db
+from services.ai_inference import load_artifacts
 
 from routes.userRoutes import router as user_routes
 from routes.patientRoutes import router as patient_routes
@@ -21,6 +22,7 @@ app.add_middleware(
 )
 
 connect_db()
+load_artifacts()
 
 app.include_router(user_routes)
 app.include_router(patient_routes)
