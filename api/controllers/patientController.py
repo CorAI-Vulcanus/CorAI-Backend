@@ -127,25 +127,24 @@ def get_sessions(user_id: str, token: dict) -> list:
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    sessions = Sensor.objects(user=user).order_by("-created_at")
-    result = []
-    for s in sessions:
-        session = {
+    return [
+        {
             "id": str(s.id),
             "fs": s.fs,
             "n_samples": s.n_samples,
             "unit": s.unit,
             "freq_signal_Hz": s.freq_signal_Hz,
             "created_at": s.created_at.isoformat() if s.created_at else None,
-            "ecg": [{"v_mV": e.v_mV, "t_us": e.t_us} for e in s.ecg],
-            "analysis": None,
-        }
-        if s.analysis:
-            session["analysis"] = {
+            "ecg": [
+                {"v_mV": e.v_mV, "t_us": e.t_us, "timestamp": e.timestamp.isoformat() if e.timestamp else None}
+                for e in s.ecg
+            ],
+            "analysis": {
                 "label": s.analysis.label,
                 "confidence": s.analysis.confidence,
                 "probabilities": s.analysis.probabilities,
                 "analyzed_at": s.analysis.analyzed_at.isoformat() if s.analysis.analyzed_at else None,
-            }
-        result.append(session)
-    return result
+            } if s.analysis else None,
+        }
+        for s in Sensor.objects(user=user).order_by("-created_at")
+    ]

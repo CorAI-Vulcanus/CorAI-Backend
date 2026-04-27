@@ -9,6 +9,7 @@ from services.ai_inference import load_artifacts
 from routes.userRoutes import router as user_routes
 from routes.patientRoutes import router as patient_routes
 from routes.adminRoutes import router as admin_routes
+from wss.wsRoutes import ws_router
 
 app = FastAPI(title="CorAI API", version="0.1.0")
 
@@ -26,6 +27,7 @@ load_artifacts()
 app.include_router(user_routes)
 app.include_router(patient_routes)
 app.include_router(admin_routes)
+app.include_router(ws_router)
 
 
 @app.get("/")
